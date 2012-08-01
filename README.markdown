@@ -14,7 +14,7 @@ You can also right-arrow through a shorter but more up-to-date whisk "lightning 
 
 First:
 
-    % gem install whisk\_deploy
+    % gem install whisk_deploy
 
 
 Then make a deploy.yml file (in config/ if you're doing a Rails project):
@@ -126,10 +126,6 @@ If you're running on OS X or Linux you probably have all of these installed alre
 As a gem:
 
     % gem install whisk\_deploy
-
-As a rails plugin:
-
-    % script/plugin install git://github.com/jesseadams/whisk.git
 
 ### Configuration ###
 
@@ -831,5 +827,6 @@ is available here:
  - [Brandon Valentine](https://github.com/brandonvalentine): help with bug fixing
  - [Josh Moore](https://github.com/joshsmoore): bug hunting
  - [Rolf Timmermans](https://github.com/rolftimmermans): enhancements
+ - [Jesse R. Adams](HTTPS://github.com/jesseadams): whisk\_deploy fork manager
 
  - Documentation/feedback: [Cristi Balan](https://github.com/evilchelu), [Hedgehog](http://github.com/hedgehog)
