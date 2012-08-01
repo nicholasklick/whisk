@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "whiskey_disk"
+  s.name = "whiskey"
   s.version = "0.6.24"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Rick Bradley"]
-  s.date = "2011-10-05"
+  s.authors = ["Rick Bradley", "Jesse R. Adams"]
+  s.date = "2012-09-01"
   s.description = "Opinionated gem for doing fast git-based server deployments."
-  s.email = "rick@rickbradley.com"
+  s.email = "jesse@techno-geeks.org"
   s.executables = ["wd_role", "wd"]
   s.extra_rdoc_files = [
     "README.integration_specs",
@@ -195,9 +195,9 @@ Gem::Specification.new do |s|
     "tasks/deploy.rake",
     "whiskey_disk.gemspec"
   ]
-  s.homepage = "http://github.com/flogic/whiskey_disk"
+  s.homepage = "http://github.com/jesseadams/whisk"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.11"
   s.summary = "embarrassingly fast deployments."
 
   if s.respond_to? :specification_version then

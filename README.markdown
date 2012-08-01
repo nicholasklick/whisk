@@ -1,19 +1,19 @@
-## Whiskey Disk -- embarrassingly fast deployments. ##
+## Whisk Deploy -- embarrassingly fast deployments. ##
 
 
-A very opinionated deployment tool, designed to be as fast as technologically possible.  (For more background, read the [WHY.txt](http://github.com/flogic/whiskey_disk/raw/master/WHY.txt) file)  Should work with any project which is git hosted, not just Ruby / Ruby on Rails projects.  Allows for local deploys as well as remote.
+A very opinionated deployment tool, designed to be as fast as technologically possible.  (For more background, read the [WHY.txt](http://github.com/jesseadams/whisk/raw/master/WHY.txt) file)  Should work with any project which is git hosted, not just Ruby / Ruby on Rails projects.  Allows for local deploys as well as remote.
 
-You can right-arrow through a talk on the design process of whiskey_disk, given at the 2011 Madison Ruby Conference (as well as the Ruby Hoedown), entitled "Free Whiskey" by going to [http://madisonruby.rickbradley.com](http://madisonruby.rickbradley.com) (slide source available [here](http://github.com/rick/madison_free_whiskey)).
+You can right-arrow through a talk on the design process of whisk, given at the 2011 Madison Ruby Conference (as well as the Ruby Hoedown), entitled "Free Whiskey" by going to [http://madisonruby.rickbradley.com](http://madisonruby.rickbradley.com) (slide source available [here](http://github.com/rick/madison_free_whiskey)).
 
-Or... right-arrow through a short whiskey_disk presentation at [http://wd2010.rickbradley.com/](http://wd2010.rickbradley.com) (slide source available [here](http://github.com/rick/whiskey_disk_presentation).), covering the 0.2.*-era functionality.
+Or... right-arrow through a short whisk presentation at [http://wd2010.rickbradley.com/](http://wd2010.rickbradley.com) (slide source available [here](http://github.com/rick/whisk_presentation).), covering the 0.2.*-era functionality.
 
-You can also right-arrow through a shorter but more up-to-date whiskey_disk "lightning talk" presentation (from the 2010 Ruby Hoedown) at [http://wdlightning.rickbradley.com/](http://wdlightning.rickbradley.com) (slide source available [here](http://github.com/rick/whiskey_disk_presentation/tree/lightning).), covering the 0.4.*-era functionality.
+You can also right-arrow through a shorter but more up-to-date whisk "lightning talk" presentation (from the 2010 Ruby Hoedown) at [http://wdlightning.rickbradley.com/](http://wdlightning.rickbradley.com) (slide source available [here](http://github.com/rick/whisk_presentation/tree/lightning).), covering the 0.4.*-era functionality.
 
 ### tl;dr ###
 
 First:
 
-    % gem install whiskey_disk
+    % gem install whisk
 
 
 Then make a deploy.yml file (in config/ if you're doing a Rails project):
@@ -105,7 +105,7 @@ current local checkout.
 
 ### Dependencies ###
 
-On the server from which the whiskey_disk process will be kicked off:
+On the server from which the whisk process will be kicked off:
 
  - ruby
  - rake
@@ -124,11 +124,11 @@ If you're running on OS X or Linux you probably have all of these installed alre
 
 As a gem:
 
-    % gem install whiskey_disk
+    % gem install whisk
 
 As a rails plugin:
 
-    % script/plugin install git://github.com/flogic/whiskey_disk.git
+    % script/plugin install git://github.com/jesseadams/whisk.git
 
 ### Configuration ###
 
@@ -361,7 +361,7 @@ Whiskey\_disk includes a helper library for use in rake tasks and other ruby scr
 find a ruby function 'role?' which returns true if you're currently being deployed to a domain with the given
 role.  For example:
 
-    require 'whiskey_disk/helpers'
+    require 'whisk/helpers'
 
     namespace :deploy do
       task :create_rails_directories do
@@ -445,13 +445,13 @@ are in an environment where the 'app' role is active but the 'web' role is not:
 
     % wd setup --to=<target>
     % wd setup --to=<project>:<target>
-    % wd setup --to=foo:qa --path=/etc/whiskey_disk/deploy.yml
+    % wd setup --to=foo:qa --path=/etc/whisk/deploy.yml
     % wd setup --to=foo:qa --path=https://github.com/username/project/raw/master/path/to/configs/deploy.yml
     % wd setup --to=foo:qa --only=myhost.example.com
 
     % wd deploy --to=<target>
     % wd deploy --to=<project>:<target>
-    % wd deploy --to=foo:qa --path=/etc/whiskey_disk/deploy.yml
+    % wd deploy --to=foo:qa --path=/etc/whisk/deploy.yml
     % wd deploy --to=foo:qa --path=https://github.com/username/project/raw/master/path/to/configs/deploy.yml
     % wd deploy --to=foo:qa --only=myhost.example.com
 
@@ -507,7 +507,7 @@ deployment target system.
 Do you want to run database migrations when no migrations have been added?  Why bother compressing front-end assets when none of them have changed?  Why restart your application server if only the project README changed?  Whiskey\_disk provides a `changed?` ruby helper method to allow you to decide whether to run expensive post deployment tasks, based on what files changed in the deployment.  Typically this would happen in your rake tasks, but it could happen from regular ruby code as well.
 
 
-    require 'whiskey_disk/helpers'
+    require 'whisk/helpers'
 
     namespace :deploy do
 
@@ -534,7 +534,7 @@ Do you want to run database migrations when no migrations have been added?  Why 
 
 You can use rake tasks to do everything possible with whiskey\_disk (the `wd` command is just a front-end to the whiskey\_disk rake tasks).  In your Rakefile:
 
-    require 'whiskey_disk/rake'
+    require 'whisk/rake'
 
   Then, from the command-line:
 
@@ -585,7 +585,7 @@ To turn on staleness checking, simply specify the '--check' flag when deploying 
 If running whiskey\_disk purely via rake, you can also enable staleness checking.  This works by setting the 'check'
 environment variable to the string 'true' or 'yes':
 
-    % check='true' to='whiskey_disk:testing' rake deploy:now
+    % check='true' to='whisk:testing' rake deploy:now
 
 
 ### Configuration Repository ###
@@ -802,7 +802,7 @@ Notice that there are no separate trees for 'uat' and 'qa' targets.
 ### Future Directions ###
 
 Check out the [Pivotal Tracker project](https://www.pivotaltracker.com/projects/202125)
-to see what we have in mind for the near future.
+to see what the original author had in mind for the near future.
 
 ### Resources ###
 
@@ -812,12 +812,10 @@ to see what we have in mind for the near future.
 
 ### Support ###
 
-The [bug tracker](https://github.com/flogic/whiskey_disk/issues)
+The [bug tracker](https://github.com/jesseadams/whisk/issues)
 is available here:
 
-  -  [https://github.com/flogic/whiskey_disk/issues](https://github.com/flogic/whiskey_disk/issues)
-
-The IRC channel is #whiskey_disk on freenode.
+  -  [https://github.com/jesseadams/whisk/issues](https://github.com/jesseadams/whisk/issues)
 
 ### Contributors ###
 
@@ -828,8 +826,9 @@ The IRC channel is #whiskey_disk on freenode.
  - [Kevin Barnes](https://github.com/vinbarnes): design help, code
  - [Alex Sharp](https://github.com/ajsharp): issues, real-world usage cases, design help
  - [Yossef Mendelssohn](https://github.com/ymendel): design help, proofreading
- - [Aaron Kalin](https://github.com/martinisoft) - bug hunting
- - [Brandon Valentine](https://github.com/brandonvalentine) - help with bug fixing
+ - [Aaron Kalin](https://github.com/martinisoft): bug hunting
+ - [Brandon Valentine](https://github.com/brandonvalentine): help with bug fixing
  - [Josh Moore](https://github.com/joshsmoore): bug hunting
+ - [Rolf Timmermans](https://github.com/rolftimmermans): enhancements
 
  - Documentation/feedback: [Cristi Balan](https://github.com/evilchelu), [Hedgehog](http://github.com/hedgehog)
