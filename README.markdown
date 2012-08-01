@@ -1,5 +1,6 @@
 ## Whisk Deploy -- embarrassingly fast deployments. ##
 
+I am forking whiskey\_disk under this project in attempt to catch the project up. The author is 10-12 months behind the projects maintenance and I contacted him. He is unsure of when he will be able to put more time into the whiskey\_disk project. So for now, this is my attempt to keep the project going in his absence.
 
 A very opinionated deployment tool, designed to be as fast as technologically possible.  (For more background, read the [WHY.txt](http://github.com/jesseadams/whisk/raw/master/WHY.txt) file)  Should work with any project which is git hosted, not just Ruby / Ruby on Rails projects.  Allows for local deploys as well as remote.
 
@@ -13,7 +14,7 @@ You can also right-arrow through a shorter but more up-to-date whisk "lightning 
 
 First:
 
-    % gem install whisk
+    % gem install whisk\_deploy
 
 
 Then make a deploy.yml file (in config/ if you're doing a Rails project):
@@ -54,7 +55,7 @@ not where I want to be any more.)
     Operations to perform after setup or deployment are specified as rake
 tasks.
 
-  - You can do *local* deployments, by this I mean you can use whiskey\_disk to
+  - You can do *local* deployments, by this I mean you can use whisk\_deploy to
     deploy fully running instances of your application to the same machine
 you're developing on.  This turns out to be surprisingly handy (well, I was
 surprised).  *NOTE*:  be sure to set your deploy_to to a place other than the
@@ -65,7 +66,7 @@ current local checkout.
 
   - You can separate per-deployment application configuration information (e.g., passwords,
     database configs, hoptoad/AWS/email config data, etc.) in separate repositories from
-    the application, and whiskey\_disk will merge the correct data onto the deployed
+    the application, and whisk\_deploy will merge the correct data onto the deployed
     application at deployment time.  You can even share sets of configuration files among
     deployment targets that behave alike.
 
@@ -81,7 +82,7 @@ current local checkout.
     either the main repo, or the config repo (if you're using one) has
     changes that are newer than what is currently deployed.
 
-  - Put whiskey\_disk in a cron, with staleness checks enabled, and you can
+  - Put whisk\_deploy in a cron, with staleness checks enabled, and you can
     do hands-free automated deployments whenever code is pushed to your
     deployment branch of choice!
 
@@ -105,18 +106,18 @@ current local checkout.
 
 ### Dependencies ###
 
-On the server from which the whisk process will be kicked off:
+On the server from which the whisk\_deploy process will be kicked off:
 
  - ruby
  - rake
- - whiskey\_disk
+ - whisk\_deploy
  - ssh (if doing a remote deployment).
 
 On the deployment target server (which may be the same as the first server):
 
  - a bash-compatible shell
  - rsync (only if using a configuration repository)
- - ruby, rake, whiskey\_disk (only if running post\_setup or post\_deploy hooks)
+ - ruby, rake, whisk\_deploy (only if running post\_setup or post\_deploy hooks)
 
 If you're running on OS X or Linux you probably have all of these installed already.  Note that the deployment target system doesn't even have to have ruby installed unless post\_* rake hooks are being run.
 
@@ -124,7 +125,7 @@ If you're running on OS X or Linux you probably have all of these installed alre
 
 As a gem:
 
-    % gem install whisk
+    % gem install whisk\_deploy
 
 As a rails plugin:
 
@@ -322,11 +323,11 @@ All that said, it's often simpler to refrain from carving up hosts into roles.  
 
 ### post\_deploy\_script and post\_setup\_script ###
 
-Whiskey\_disk provides rake task hooks (deploy:post\_setup and deploy:post\_deploy) to allow running custom
+whisk\_deploy provides rake task hooks (deploy:post\_setup and deploy:post\_deploy) to allow running custom
 code after setup or deployment.  There are situations where it is desirable to run some commands prior to
 running those rake tasks (e.g., if using bundler and needing to do a 'bundle install' before running rake).
 It may also be the case that the target system doesn't have rake (and/or ruby) installed, but some post-setup
-or post-deploy operations need to happen.  For these reasons, whiskey\_disk allows specifying a (bash-compatible)
+or post-deploy operations need to happen.  For these reasons, whisk\_deploy allows specifying a (bash-compatible)
 shell script to run after setup and/or deployment via the post\_deploy\_script and post\_setup\_script settings
 in the configuration file.  These scripts, when specified, are run immediately before running the deploy:post\_setup
 or deploy:post\_deploy rake tasks, if they are present.
@@ -357,7 +358,7 @@ target system.
 
 #### When running rake tasks or other ruby scripts ####
 
-Whiskey\_disk includes a helper library for use in rake tasks and other ruby scripts.  In that library you'll
+whisk\_deploy includes a helper library for use in rake tasks and other ruby scripts.  In that library you'll
 find a ruby function 'role?' which returns true if you're currently being deployed to a domain with the given
 role.  For example:
 
@@ -402,7 +403,7 @@ role.  For example:
 
 #### When working with the shell ####
 
-Installing the whiskey\_disk gem also installs another binary, called wd_role.  It's job is really simple,
+Installing the whisk\_deploy gem also installs another binary, called wd_role.  It's job is really simple,
 given a role, determine if we're currently in a deployment that matches that role.  If so, exit with a success
 exit status, otherwise, exit with an error exit status.  This allows programs running in the shell to conditionally
 execute code based on domain roles.  This is particularly applicable to post\_setup\_script and post\_deploy\_script
@@ -441,17 +442,17 @@ are in an environment where the 'app' role is active but the 'web' role is not:
 
 
 
-### Running whiskey\_disk from the command-line ###
+### Running whisk\_deploy from the command-line ###
 
     % wd setup --to=<target>
     % wd setup --to=<project>:<target>
-    % wd setup --to=foo:qa --path=/etc/whisk/deploy.yml
+    % wd setup --to=foo:qa --path=/etc/whisk\_deploy/deploy.yml
     % wd setup --to=foo:qa --path=https://github.com/username/project/raw/master/path/to/configs/deploy.yml
     % wd setup --to=foo:qa --only=myhost.example.com
 
     % wd deploy --to=<target>
     % wd deploy --to=<project>:<target>
-    % wd deploy --to=foo:qa --path=/etc/whisk/deploy.yml
+    % wd deploy --to=foo:qa --path=/etc/whisk\_deploy/deploy.yml
     % wd deploy --to=foo:qa --path=https://github.com/username/project/raw/master/path/to/configs/deploy.yml
     % wd deploy --to=foo:qa --only=myhost.example.com
 
@@ -494,17 +495,17 @@ The --only setting is used to tell a node what its name is, and to tell it not t
 
 ### A note about post\_{setup,deploy} Rake tasks
 
-If you want actions to run on the deployment target after you do a whiskey\_disk setup or whiskey\_disk deploy,
-you will need to make sure that whiskey\_disk is available on the target system (either by gem installation,
+If you want actions to run on the deployment target after you do a whisk\_deploy setup or whisk\_deploy deploy,
+you will need to make sure that whisk\_deploy is available on the target system (either by gem installation,
 as a rails plugin in the Rails application to be deployed, or as a vendored library in the application to be
-deployed).  Whiskey\_disk provides the basic deploy:post\_setup and deploy:post\_deploy hooks which get called.
-You can also define these tasks yourself if you want to eliminate the dependency on whiskey\_disk on the
+deployed).  whisk\_deploy provides the basic deploy:post\_setup and deploy:post\_deploy hooks which get called.
+You can also define these tasks yourself if you want to eliminate the dependency on whisk\_deploy on the
 deployment target system.
 
 
 ### Doing things when files of interest change ###
 
-Do you want to run database migrations when no migrations have been added?  Why bother compressing front-end assets when none of them have changed?  Why restart your application server if only the project README changed?  Whiskey\_disk provides a `changed?` ruby helper method to allow you to decide whether to run expensive post deployment tasks, based on what files changed in the deployment.  Typically this would happen in your rake tasks, but it could happen from regular ruby code as well.
+Do you want to run database migrations when no migrations have been added?  Why bother compressing front-end assets when none of them have changed?  Why restart your application server if only the project README changed?  whisk\_deploy provides a `changed?` ruby helper method to allow you to decide whether to run expensive post deployment tasks, based on what files changed in the deployment.  Typically this would happen in your rake tasks, but it could happen from regular ruby code as well.
 
 
     require 'whisk/helpers'
@@ -532,7 +533,7 @@ Do you want to run database migrations when no migrations have been added?  Why 
 
 ### Running via rake ###
 
-You can use rake tasks to do everything possible with whiskey\_disk (the `wd` command is just a front-end to the whiskey\_disk rake tasks).  In your Rakefile:
+You can use rake tasks to do everything possible with whisk\_deploy (the `wd` command is just a front-end to the whisk\_deploy rake tasks).  In your Rakefile:
 
     require 'whisk/rake'
 
@@ -566,26 +567,26 @@ You can use rake tasks to do everything possible with whiskey\_disk (the `wd` co
     % rake deploy:setup to=<project>:<target> only=myhost.example.com
     % rake deploy:now to=<project>:<target> only=myhost.example.com
 
-  (see the discussion of --only above in "Running whiskey\_disk from the command-line" for more information)
+  (see the discussion of --only above in "Running whisk\_deploy from the command-line" for more information)
 
 
 ### Staleness checks ###
 
-Enabling staleness checking will cause whiskey\_disk to check whether the deployed checkout of the repository
+Enabling staleness checking will cause whisk\_deploy to check whether the deployed checkout of the repository
 is out of date ("stale") with respect to the upstream version in git.  If there is a configuration repository
-in use, whiskey\_disk will check the deployed checkout of the configuration repository for staleness as well.
+in use, whisk\_deploy will check the deployed checkout of the configuration repository for staleness as well.
 If the checkouts are already up-to-date the deployment process will print an up-to-date message and stop rather
-than proceeding with any of the deployment actions.  This makes it easy to simply run whiskey\_disk out of cron
+than proceeding with any of the deployment actions.  This makes it easy to simply run whisk\_deploy out of cron
 so that it will automatically perform a deployment whenever changes are pushed to the upstream git repositories.
 
 To turn on staleness checking, simply specify the '--check' flag when deploying (or the shorter '-c')
 
     wd deploy --check --to=foobar:production
 
-If running whiskey\_disk purely via rake, you can also enable staleness checking.  This works by setting the 'check'
+If running whisk\_deploy purely via rake, you can also enable staleness checking.  This works by setting the 'check'
 environment variable to the string 'true' or 'yes':
 
-    % check='true' to='whisk:testing' rake deploy:now
+    % check='true' to='whisk\_deploy:testing' rake deploy:now
 
 
 ### Configuration Repository ###
@@ -651,10 +652,10 @@ the [larry project](http://github.com/flogic/larry) to manage our high-level
 configuration data.
 
 Note, if you set the 'project' setting in deploy.yml, that determines the
-name of the top-level project directory whiskey\_disk will hunt for in your
+name of the top-level project directory whisk\_deploy will hunt for in your
 config repo.  If you don't it uses the 'repository' setting (i.e., the git URL)
 to try to guess what the project name might be.  So if the URL ends in
-foo/bar.git, or foo:bar.git, or /bar, or :bar, whiskey\_disk is going to guess
+foo/bar.git, or foo:bar.git, or /bar, or :bar, whisk\_deploy is going to guess
 "bar".  If it's all bitched up, just set 'project' manually in deploy.yml.
 
 Inside the project directory is a directory named for each target we
@@ -754,7 +755,7 @@ Notice that there are no separate trees for 'uat' and 'qa' targets.
 
 ### More Examples: ###
 
- - We are using whiskey\_disk to manage larry.  See [https://github.com/flogic/larry/blob/master/config/deploy-local.yml.example](https://github.com/flogic/larry/blob/master/config/deploy-local.yml.example) and [http://github.com/flogic/larry/blob/master/lib/tasks/deploy.rake](http://github.com/flogic/larry/blob/master/lib/tasks/deploy.rake)
+ - We are using whisk\_deploy to manage larry.  See [https://github.com/flogic/larry/blob/master/config/deploy-local.yml.example](https://github.com/flogic/larry/blob/master/config/deploy-local.yml.example) and [http://github.com/flogic/larry/blob/master/lib/tasks/deploy.rake](http://github.com/flogic/larry/blob/master/lib/tasks/deploy.rake)
 
  - Here is a sample of a lib/tasks/deploy.rake from a Rails application we deployed once upon a time:
 

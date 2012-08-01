@@ -4,15 +4,15 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "whiskey"
-  s.version = "0.6.24"
+  s.name = "whisk_deploy"
+  s.version = "0.6.25"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rick Bradley", "Jesse R. Adams"]
-  s.date = "2012-09-01"
+  s.date = "2012-08-01"
   s.description = "Opinionated gem for doing fast git-based server deployments."
   s.email = "jesse@techno-geeks.org"
-  s.executables = ["wd_role", "wd"]
+  s.executables = ["wd", "wd_role"]
   s.extra_rdoc_files = [
     "README.integration_specs",
     "README.markdown"
@@ -193,11 +193,11 @@ Gem::Specification.new do |s|
     "spec/whiskey_disk/rake_spec.rb",
     "spec/whiskey_disk_spec.rb",
     "tasks/deploy.rake",
-    "whiskey_disk.gemspec"
+    "whisk.gemspec"
   ]
-  s.homepage = "http://github.com/jesseadams/whisk"
+  s.homepage = "http://github.com/jesseadams/whiskey"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.24"
   s.summary = "embarrassingly fast deployments."
 
   if s.respond_to? :specification_version then
