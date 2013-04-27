@@ -125,7 +125,7 @@ If you're running on OS X or Linux you probably have all of these installed alre
 
 As a gem:
 
-    % gem install whisk\_deploy
+    % gem install whisk_deploy
 
 ### Configuration ###
 
