@@ -222,7 +222,7 @@ class WhiskeyDisk
   def refresh_checkout(path, repo_branch)
     enqueue "cd #{path}"
     enqueue "git fetch origin +refs/heads/#{repo_branch}:refs/remotes/origin/#{repo_branch} #{'&>/dev/null' unless debugging?}"
-    enqueue "git checkout #{repo_branch} #{'&>/dev/null' unless debugging?}"
+    enqueue "git checkout --force #{repo_branch} #{'&>/dev/null' unless debugging?}"
     enqueue "git reset --hard origin/#{repo_branch} #{'&>/dev/null' unless debugging?}"
   end
 
