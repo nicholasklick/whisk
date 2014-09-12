@@ -1119,7 +1119,14 @@ describe '@whiskey_disk' do
       it 'includes domain role settings when the domain has roles' do
         @domain = { 'name' => @domain_name, 'roles' => [ 'web', 'db' ] }
         @whiskey_disk.configuration = { 'domain' => [ @domain ] }
-        @whiskey_disk.build_command(@domain, 'ls').should.match /export WD_ROLES='web:db'; ls/
+        expect(@whiskey_disk.build_command(@domain, 'ls')).to match(/export WD_ROLES='web:db'; ls/)
+      end
+
+      it  'incldues other arbitrary env vars when specified' do
+        @domain = { 'name' => @domain_name, 'roles' => [ 'web', 'db' ], 'env_vars' => { 'WORKER_COUNT' => 5 } }
+        @whiskey_disk.configuration = { 'domain' => [ @domain ] }
+        cmd = @whiskey_disk.build_command(@domain, 'ls')
+        expect(cmd).to include("export WORKER_COUNT='5';")
       end
     end
 

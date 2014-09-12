@@ -127,9 +127,16 @@ class WhiskeyDisk
     return '' unless roles and !roles.empty?
     "export WD_ROLES='#{roles.join(':')}'; "
   end
+  
+  def encode_env_vars(vars)
+    return '' unless vars and !vars.empty?
+    vars.map do |name, val|
+      "export #{name}='#{val}'; "
+    end.join
+  end
 
   def build_command(domain, cmd)
-    "#{'set -x; ' if debugging?}" + encode_roles(domain['roles']) + cmd
+    "#{'set -x; ' if debugging?}" + encode_env_vars(domain['env_vars']) + encode_roles(domain['roles']) + cmd
   end
 
   def rake_command

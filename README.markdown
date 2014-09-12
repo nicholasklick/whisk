@@ -227,6 +227,17 @@ If you need special flags passed to ssh for a given domain, specify an array of 
         - "-p 443"
       deploy_to: "/var/www/www.ogtastic.com"
       repository: "git@ogtastic.com:www.ogtastic.com.git"
+      
+Likewise, if you need special environment variables per domain, specify a hash of `env_vars` names and values:
+
+
+    qa:
+      domain:
+      - name: "ogc@qa.ogtastic.com"
+        env_vars:
+          WORKER_COUNT: 5
+      deploy_to: "/var/www/www.ogtastic.com"
+      repository: "git@ogtastic.com:www.ogtastic.com.git"
 
 ### Specifying domains, with or without roles ###
 
