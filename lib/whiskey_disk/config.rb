@@ -92,7 +92,7 @@ class WhiskeyDisk
 
     # called only by #fetch
     def load_data
-      YAML.load(configuration_data)
+      YAML.load(ERB.new(configuration_data).result)
     rescue Exception => e
       raise %Q{Error reading configuration file [#{configuration_file}]: "#{e}"}
     end

@@ -388,13 +388,13 @@ describe '@whiskey_disk' do
 
     it 'works from the default branch if no branch is specified' do
       @whiskey_disk.update_main_repository_checkout
-      @whiskey_disk.buffer.join(' ').should.match(%r{git checkout master})
+      @whiskey_disk.buffer.join(' ').should.match(%r{git checkout --force master})
     end
 
     it 'works from the specified branch if one is specified' do
       @whiskey_disk.configuration = @parameters.merge({'branch' => 'production'})
       @whiskey_disk.update_main_repository_checkout
-      @whiskey_disk.buffer.join(' ').should.match(%r{git checkout production})
+      @whiskey_disk.buffer.join(' ').should.match(%r{git checkout --force production})
     end
 
     it 'attempts to reset the master branch from the origin if no branch is specified' do
@@ -1119,14 +1119,14 @@ describe '@whiskey_disk' do
       it 'includes domain role settings when the domain has roles' do
         @domain = { 'name' => @domain_name, 'roles' => [ 'web', 'db' ] }
         @whiskey_disk.configuration = { 'domain' => [ @domain ] }
-        expect(@whiskey_disk.build_command(@domain, 'ls')).to match(/export WD_ROLES='web:db'; ls/)
+        @whiskey_disk.build_command(@domain, 'ls').should.match(/export WD_ROLES='web:db'; ls/)
       end
 
       it  'incldues other arbitrary env vars when specified' do
         @domain = { 'name' => @domain_name, 'roles' => [ 'web', 'db' ], 'env_vars' => { 'WORKER_COUNT' => 5 } }
         @whiskey_disk.configuration = { 'domain' => [ @domain ] }
         cmd = @whiskey_disk.build_command(@domain, 'ls')
-        expect(cmd).to include("export WORKER_COUNT='5';")
+        cmd.should.include("export WORKER_COUNT='5';")
       end
     end
 

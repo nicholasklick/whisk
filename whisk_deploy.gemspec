@@ -4,8 +4,8 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "whisk_deploy"
-  s.version = "0.6.25"
+  s.name = "ol-whisk_deploy"
+  s.version = "0.6.26.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rick Bradley", "Jesse R. Adams"]
@@ -193,7 +193,7 @@ Gem::Specification.new do |s|
     "spec/whiskey_disk/rake_spec.rb",
     "spec/whiskey_disk_spec.rb",
     "tasks/deploy.rake",
-    "whisk.gemspec"
+    "whisk_deploy.gemspec"
   ]
   s.homepage = "http://github.com/jesseadams/whiskey"
   s.require_paths = ["lib"]
